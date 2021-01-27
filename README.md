@@ -1,3 +1,2 @@
-# react-vwa23g
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-vwa23g)
+JSON Diff Viewer
+Compares JSON Objects to show the JSON diff in universal JSON Diff Format.
