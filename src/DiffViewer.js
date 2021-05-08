@@ -226,7 +226,7 @@ class DiffViewer extends PureComponent {
           Array.isArray(arrayToIterate[index]) &&
           index < indexLimit &&
           arrayToCheck.length > 0 ? (
-            <>
+            <React.Fragment key={blockObjData}>
               {this.renderArrayDiffView(
                 baseArray[index],
                 newArray[index],
@@ -234,29 +234,29 @@ class DiffViewer extends PureComponent {
                 null,
                 level
               )}
-            </>
+            </React.Fragment>
           ) : typeof arrayToIterate[index] === 'object' ? (
             arrayToCheck.length > 0 && index < indexLimit ? (
-              <>
+              <React.Fragment key={blockObjData}>
                 {this.renderObjectDiffView(
                   baseArray[index],
                   newArray[index],
                   level + 1
                 )}
                 <tr className="blank-row" />
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment key={blockObjData}>
                 {this.renderObjectView(
                   blockObjData,
                   isBaseArrayGreater,
                   level + 1
                 )}
                 <tr className="blank-row" />
-              </>
+              </React.Fragment>
             )
           ) : (
-            <>
+            <React.Fragment key={blockObjData}>
               {this.renderArrayPropertyView(
                 baseArray[index],
                 newArray[index],
@@ -270,7 +270,7 @@ class DiffViewer extends PureComponent {
                 blockObjData
               )}
               <tr className="blank-row" />
-            </>
+            </React.Fragment>
           )
         )}
       </>
@@ -289,7 +289,7 @@ class DiffViewer extends PureComponent {
         {objectKeys.map((blockObjKey, index) =>
           isDelete ? (
             Array.isArray(obj[blockObjKey]) ? (
-              <>
+              <React.Fragment key={blockObjKey}>
                 {this.renderArrayDiffView(
                   obj[blockObjKey],
                   [],
@@ -297,7 +297,7 @@ class DiffViewer extends PureComponent {
                   'deleted',
                   level
                 )}
-              </>
+              </React.Fragment>
             ) : typeof obj[blockObjKey] === 'object' ? (
               <React.Fragment key={blockObjKey}>
                 <tr>
