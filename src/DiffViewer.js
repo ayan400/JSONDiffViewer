@@ -1,6 +1,6 @@
-import React, { PureComponent } from "react";
-import { difference } from "lodash";
-import PropTypes from "prop-types";
+import React, { PureComponent } from 'react';
+import { difference } from 'lodash';
+import PropTypes from 'prop-types';
 
 class DiffViewer extends PureComponent {
   /*
@@ -20,7 +20,7 @@ class DiffViewer extends PureComponent {
           newObj.hasOwnProperty(blockKey) &&
           baseObj[blockKey] !== newObj[blockKey] ? (
             Array.isArray(baseObj[blockKey]) ? (
-              <>
+              <React.Fragment key={blockKey}>
                 {this.renderArrayDiffView(
                   baseObj[blockKey],
                   newObj[blockKey],
@@ -31,15 +31,15 @@ class DiffViewer extends PureComponent {
                   ),
                   level
                 )}
-              </>
-            ) : typeof baseObj[blockKey] === "object" ? (
-              <>
+              </React.Fragment>
+            ) : typeof baseObj[blockKey] === 'object' ? (
+              <React.Fragment key={blockKey}>
                 <tr>
                   <td style={{ paddingLeft: levelPaddingValue }}>
-                    {JSON.stringify(blockKey) + ":"}
+                    {JSON.stringify(blockKey) + ':'}
                   </td>
                   <td style={{ paddingLeft: levelPaddingValue }}>
-                    {JSON.stringify(blockKey) + ":"}
+                    {JSON.stringify(blockKey) + ':'}
                   </td>
                 </tr>
                 {this.renderObjectDiffView(
@@ -47,57 +47,57 @@ class DiffViewer extends PureComponent {
                   newObj[blockKey],
                   level + 1
                 )}
-              </>
+              </React.Fragment>
             ) : (
               <tr className="modified" key={blockKey}>
                 <td style={{ paddingLeft: levelPaddingValue }}>
-                  {JSON.stringify(blockKey) + ":"}
-                  {" " + JSON.stringify(baseObj[blockKey])}
-                  {index < policyKeys.length - 1 && ","}
+                  {JSON.stringify(blockKey) + ':'}
+                  {' ' + JSON.stringify(baseObj[blockKey])}
+                  {index < policyKeys.length - 1 && ','}
                 </td>
                 <td style={{ paddingLeft: levelPaddingValue }}>
-                  {JSON.stringify(blockKey) + ":"}
-                  {" " + JSON.stringify(newObj[blockKey])}
+                  {JSON.stringify(blockKey) + ':'}
+                  {' ' + JSON.stringify(newObj[blockKey])}
                   {addedKeys.length === 0
-                    ? blockKey !== lastSwitchKey && ","
-                    : ","}
+                    ? blockKey !== lastSwitchKey && ','
+                    : ','}
                 </td>
               </tr>
             )
           ) : baseObj.hasOwnProperty(blockKey) &&
             !newObj.hasOwnProperty(blockKey) ? (
             Array.isArray(baseObj[blockKey]) ? (
-              <>
+              <React.Fragment key={blockKey}>
                 {this.renderArrayDiffView(
                   baseObj[blockKey],
                   [],
                   blockKey,
-                  "deleted",
+                  'deleted',
                   level
                 )}
-              </>
-            ) : typeof baseObj[blockKey] === "object" ? (
-              <>
+              </React.Fragment>
+            ) : typeof baseObj[blockKey] === 'object' ? (
+              <React.Fragment key={blockKey}>
                 <tr>
                   <td
                     style={{ paddingLeft: levelPaddingValue }}
                     className="deleted"
                   >
-                    {JSON.stringify(blockKey) + ":"}
+                    {JSON.stringify(blockKey) + ':'}
                   </td>
                   <td className="empty" />
                 </tr>
                 {this.renderObjectView(baseObj[blockKey], true, level + 1)}
-              </>
+              </React.Fragment>
             ) : (
               <tr key={blockKey}>
                 <td
                   className="deleted"
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(blockKey) + ":"}
-                  {" " + JSON.stringify(baseObj[blockKey])}
-                  {index < policyKeys.length - 1 && ","}
+                  {JSON.stringify(blockKey) + ':'}
+                  {' ' + JSON.stringify(baseObj[blockKey])}
+                  {index < policyKeys.length - 1 && ','}
                 </td>
                 <td className="empty" />
               </tr>
@@ -107,16 +107,16 @@ class DiffViewer extends PureComponent {
             baseObj[blockKey] === newObj[blockKey] ? (
             <tr key={blockKey}>
               <td style={{ paddingLeft: levelPaddingValue }}>
-                {JSON.stringify(blockKey) + ":"}
-                {" " + JSON.stringify(baseObj[blockKey])}
-                {index < policyKeys.length - 1 && ","}
+                {JSON.stringify(blockKey) + ':'}
+                {' ' + JSON.stringify(baseObj[blockKey])}
+                {index < policyKeys.length - 1 && ','}
               </td>
               <td style={{ paddingLeft: levelPaddingValue }}>
-                {JSON.stringify(blockKey) + ":"}
-                {" " + JSON.stringify(newObj[blockKey])}
+                {JSON.stringify(blockKey) + ':'}
+                {' ' + JSON.stringify(newObj[blockKey])}
                 {addedKeys.length === 0
-                  ? blockKey !== lastSwitchKey && ","
-                  : ","}
+                  ? blockKey !== lastSwitchKey && ','
+                  : ','}
               </td>
             </tr>
           ) : null
@@ -125,28 +125,28 @@ class DiffViewer extends PureComponent {
           !baseObj.hasOwnProperty(blockKey) &&
           newObj.hasOwnProperty(blockKey) ? (
             Array.isArray(newObj[blockKey]) ? (
-              <>
+              <React.Fragment key={blockKey}>
                 {this.renderArrayDiffView(
                   [],
                   newObj[blockKey],
                   blockKey,
-                  "added",
+                  'added',
                   level
                 )}
-              </>
-            ) : typeof newObj[blockKey] === "object" ? (
-              <>
+              </React.Fragment>
+            ) : typeof newObj[blockKey] === 'object' ? (
+              <React.Fragment key={blockKey}>
                 <tr>
                   <td className="empty" />
                   <td
                     style={{ paddingLeft: levelPaddingValue }}
                     className="added"
                   >
-                    {JSON.stringify(blockKey) + ":"}
+                    {JSON.stringify(blockKey) + ':'}
                   </td>
                 </tr>
                 {this.renderObjectView(newObj[blockKey], false, level + 1)}
-              </>
+              </React.Fragment>
             ) : (
               <tr key={blockKey}>
                 <td className="empty" />
@@ -154,9 +154,9 @@ class DiffViewer extends PureComponent {
                   className="added"
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(blockKey) + ":"}
-                  {" " + JSON.stringify(newObj[blockKey])}
-                  {index < addedKeys.length - 1 && ","}
+                  {JSON.stringify(blockKey) + ':'}
+                  {' ' + JSON.stringify(newObj[blockKey])}
+                  {index < addedKeys.length - 1 && ','}
                 </td>
               </tr>
             )
@@ -180,20 +180,20 @@ class DiffViewer extends PureComponent {
       <>
         {propertyName ? (
           isBaseArrayGreater ||
-          (baseArray.length === 0 && classValue === "deleted") ? (
+          (baseArray.length === 0 && classValue === 'deleted') ? (
             <tr>
               <td
                 style={{ paddingLeft: levelPaddingValue }}
                 className={classValue}
               >
-                {JSON.stringify(propertyName) + ":"}
+                {JSON.stringify(propertyName) + ':'}
               </td>
               {newArray.length > 0 ? (
                 <td
                   className={classValue}
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(propertyName) + ":"}
+                  {JSON.stringify(propertyName) + ':'}
                 </td>
               ) : (
                 <td className="empty" />
@@ -206,7 +206,7 @@ class DiffViewer extends PureComponent {
                   className={classValue}
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(propertyName) + ":"}
+                  {JSON.stringify(propertyName) + ':'}
                 </td>
               ) : (
                 <td className="empty" />
@@ -216,7 +216,7 @@ class DiffViewer extends PureComponent {
                   style={{ paddingLeft: levelPaddingValue }}
                   className={classValue}
                 >
-                  {JSON.stringify(propertyName) + ":"}
+                  {JSON.stringify(propertyName) + ':'}
                 </td>
               }
             </tr>
@@ -235,7 +235,7 @@ class DiffViewer extends PureComponent {
                 level
               )}
             </>
-          ) : typeof arrayToIterate[index] === "object" ? (
+          ) : typeof arrayToIterate[index] === 'object' ? (
             arrayToCheck.length > 0 && index < indexLimit ? (
               <>
                 {this.renderObjectDiffView(
@@ -294,32 +294,32 @@ class DiffViewer extends PureComponent {
                   obj[blockObjKey],
                   [],
                   blockObjKey,
-                  "deleted",
+                  'deleted',
                   level
                 )}
               </>
-            ) : typeof obj[blockObjKey] === "object" ? (
-              <>
-                <tr key={blockObjKey}>
+            ) : typeof obj[blockObjKey] === 'object' ? (
+              <React.Fragment key={blockObjKey}>
+                <tr>
                   <td
                     className="deleted"
                     style={{ paddingLeft: levelPaddingValue }}
                   >
-                    {JSON.stringify(blockObjKey) + ":"}
+                    {JSON.stringify(blockObjKey) + ':'}
                   </td>
                   <td className="empty" />
                 </tr>
                 {this.renderObjectView(obj[blockObjKey], true, level + 1)}
-              </>
+              </React.Fragment>
             ) : (
               <tr key={blockObjKey}>
                 <td
                   className="deleted"
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(blockObjKey) + ":"}
-                  {" " + JSON.stringify(obj[blockObjKey])}
-                  {index < objectKeys.length - 1 && ","}
+                  {JSON.stringify(blockObjKey) + ':'}
+                  {' ' + JSON.stringify(obj[blockObjKey])}
+                  {index < objectKeys.length - 1 && ','}
                 </td>
                 <td className="empty" />
               </tr>
@@ -330,11 +330,11 @@ class DiffViewer extends PureComponent {
                 [],
                 obj[blockObjKey],
                 blockObjKey,
-                "added",
+                'added',
                 level
               )}
             </>
-          ) : typeof obj[blockObjKey] === "object" ? (
+          ) : typeof obj[blockObjKey] === 'object' ? (
             <>
               <tr key={blockObjKey}>
                 <td className="empty" />
@@ -342,7 +342,7 @@ class DiffViewer extends PureComponent {
                   className="added"
                   style={{ paddingLeft: levelPaddingValue }}
                 >
-                  {JSON.stringify(blockObjKey) + ":"}
+                  {JSON.stringify(blockObjKey) + ':'}
                 </td>
               </tr>
               {this.renderObjectView(obj[blockObjKey], false, level + 1)}
@@ -351,9 +351,9 @@ class DiffViewer extends PureComponent {
             <tr key={blockObjKey}>
               <td className="empty" />
               <td className="added" style={{ paddingLeft: levelPaddingValue }}>
-                {JSON.stringify(blockObjKey) + ":"}
-                {" " + JSON.stringify(obj[blockObjKey])}
-                {index < objectKeys.length - 1 && ","}
+                {JSON.stringify(blockObjKey) + ':'}
+                {' ' + JSON.stringify(obj[blockObjKey])}
+                {index < objectKeys.length - 1 && ','}
               </td>
             </tr>
           )
@@ -376,51 +376,51 @@ class DiffViewer extends PureComponent {
   ) {
     const levelPaddingValue = this.getLevelPaddingValue(level);
     return propertyOne && propertyTwo && propertyOne !== propertyTwo ? (
-      <>
+      <React.Fragment key={keyValue}>
         <tr className="modified" key={keyValue}>
           <td style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyOne)}
-            {isPropertyOneComma && ","}
+            {isPropertyOneComma && ','}
           </td>
           <td style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyTwo)}
-            {isPropertyTwoComma && ","}
+            {isPropertyTwoComma && ','}
           </td>
         </tr>
-      </>
+      </React.Fragment>
     ) : !propertyOne && propertyTwo ? (
-      <>
+      <React.Fragment key={keyValue}>
         <tr key={keyValue}>
           <td className="empty" />
           <td className="added" style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyTwo)}
-            {isPropertyTwoComma && ","}
+            {isPropertyTwoComma && ','}
           </td>
         </tr>
-      </>
+      </React.Fragment>
     ) : propertyOne && !propertyTwo ? (
-      <>
+      <React.Fragment key={keyValue}>
         <tr key={keyValue}>
           <td className="deleted" style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyOne)}
-            {isPropertyOneComma && ","}
+            {isPropertyOneComma && ','}
           </td>
           <td className="empty" />
         </tr>
-      </>
+      </React.Fragment>
     ) : propertyOne && propertyTwo && propertyOne === propertyTwo ? (
-      <>
-        <tr key={keyValue}>
+      <React.Fragment key={keyValue}>
+        <tr>
           <td style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyOne)}
-            {isPropertyOneComma && ","}
+            {isPropertyOneComma && ','}
           </td>
           <td style={{ paddingLeft: levelPaddingValue }}>
             {JSON.stringify(propertyTwo)}
-            {isPropertyTwoComma && ","}
+            {isPropertyTwoComma && ','}
           </td>
         </tr>
-      </>
+      </React.Fragment>
     ) : null;
   }
 
@@ -431,9 +431,9 @@ class DiffViewer extends PureComponent {
   getClassValue(lengthOne, lengthTwo) {
     let classValue = null;
     if (lengthOne === 0 && lengthTwo > 0) {
-      classValue = "added";
+      classValue = 'added';
     } else if (lengthTwo === 0 && lengthOne > 0) {
-      classValue = "deleted";
+      classValue = 'deleted';
     }
     return classValue;
   }
